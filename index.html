@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>τ — Illumina: Boiled Peanuts Demo Handout</title>
+  <meta name="description" content="A playful, practical handout: Carrier Pigeon · Jupiter · Lighthouse explained via boiled peanuts, mapped to the Illumina rendezvous spec with DIY steps and diagrams." />
+
+  <!-- Inline favicon: gradient disk with tau -->
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzdjM2FlZCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2Y1OWUwYiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjE2IiBmaWxsPSIjMGIwZjE5Ii8+PHRleHQgeD0iMTYiIHk9IjIxIiBmb250LXNpemU9IjE2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ1cmwoI2cpIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiPs6oPC90ZXh0Pjwvc3ZnPg==" />
+
+  <style>
+    :root{
+      --bg:#0b0f19; --panel:#121827; --ink:#e6e8ee; --muted:#a3acc2;
+      --accent:#7c3aed; --accent-2:#f59e0b; --rule:#2a3348; --code:#0e1422;
+      --link:#9aa8ff; --maxw:860px;
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#ffffff; --panel:#f6f7fb; --ink:#0f1222; --muted:#4a546e; --rule:#e4e7f0; --code:#f1f3f9; --link:#2b59ff; }
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:
+        radial-gradient(1000px 700px at 20% -10%, rgba(124,58,237,.08), transparent 45%),
+        radial-gradient(900px 600px at 110% 10%, rgba(245,158,11,.08), transparent 40%),
+        var(--bg);
+      color:var(--ink);
+      font:16px/1.55 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+    }
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:40px 20px 80px}
+    header{text-align:center;margin-bottom:24px}
+    .logo{
+      font-size:clamp(48px,7vw,88px); font-weight:900; letter-spacing:1px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      display:inline-block; margin-bottom:4px; line-height:1;
+    }
+    h1{margin:0 0 6px;font-size:clamp(24px,4.5vw,34px);line-height:1.2}
+    .subtitle{color:var(--muted);font-size:15px}
+    .meta{margin-top:6px;color:var(--muted);font-size:13px}
+    section{background:rgba(255,255,255,.02);border:1px solid var(--rule);
+        border-radius:14px;padding:18px;margin:16px 0}
+    h2{margin:0 0 6px;font-size:clamp(18px,3.2vw,22px)}
+    h3{margin:14px 0 6px;font-size:17px}
+    p{margin:8px 0 0}
+    ul,ol{margin:8px 0 0 18px}
+    .equation{display:block;margin:10px 0;padding:10px 12px;background:var(--code);
+      border:1px solid var(--rule);border-radius:10px;
+      font-family:ui-monospace,Menlo,Consolas,"Courier New",monospace;overflow:auto;white-space:nowrap}
+    .callout{padding:12px;border:1px dashed var(--rule);border-radius:12px;background:rgba(245,158,11,.08)}
+    .grid{display:grid;gap:12px}
+    @media(min-width:760px){.grid.cols-2{grid-template-columns:1fr 1fr}}
+    .diagram{display:block;margin:8px auto;border:1px solid var(--rule);border-radius:10px;background:var(--panel)}
+    .foot{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+    .tear{margin-top:18px;border-top:1px dashed var(--rule);padding-top:12px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .chip{border:1px solid var(--rule);padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.02);font-size:13px}
+    a{color:var(--link)}
+    @media print{
+      body{background:#fff}
+      .wrap{padding:20px 16px 24px}
+      .diagram{background:#fff}
+      .chip{background:#fff}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo" role="img" aria-label="Illumina, Greek tau symbol">&tau;</div>
+      <h1>Illumina — Boiled Peanuts Demo</h1>
+      <div class="subtitle">Carrier Pigeon &middot; Jupiter &middot; Lighthouse — a playful, working rendezvous spec</div>
+      <div class="meta">Author: Tristan White &bull; v1.0 &bull; Updated: Wed, Sep 3, 2025</div>
+    </header>
+
+    <section id="at-a-glance">
+      <h2>At a glance</h2>
+      <div class="grid cols-2">
+        <div>
+          <h3>Analogy</h3>
+          <ul>
+            <li><strong>Jar of boiled peanuts</strong> &rarr; <em>Courier</em> (store&amp;forward artifact)</li>
+            <li><strong>Roadside smell/sign</strong> &rarr; <em>Lighthouse</em> (beacon header)</li>
+            <li><strong>Batch stamp</strong> &rarr; <em>Jupiter key</em> (address &amp; clock)</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Illumina-1 (minimal spec)</h3>
+          <div class="equation">M = &lbrace; prime length <i>p</i>, Barker-like autocorrelation, checksum &rbrace; &nbsp; ; &nbsp; p &in; {31, 47}</div>
+          <ul>
+            <li><strong>ECC:</strong> RS(31,19) or extended Golay(24,12,8)</li>
+            <li><strong>Anchors:</strong> ( &alpha;, m<sub>e</sub>/m<sub>p</sub>, Q, G&hbar;/c<sup>3</sup> )</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="three-roles">
+      <h2>1) The three roles</h2>
+      <div class="grid cols-2">
+        <div>
+          <h3>Courier (Jar)</h3>
+          <p>High sender &tau;/bit, ultra-low recipient &tau;/bit. Ideal for durable artifacts or slow links. Put Illumina-1 <em>inside</em> the jar label.</p>
+        </div>
+        <div>
+          <h3>Lighthouse (Beacon)</h3>
+          <p>Repeat the header on a cadence. It’s just the “smell on the roadside” &mdash; recognizable even without a payload.</p>
+        </div>
+        <div>
+          <h3>Jupiter (Address &amp; Clock)</h3>
+          <p>Use a compact key that any observer can invert via public ephemerides: year/day bucket + Jupiter rotation + Io phase.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="diagrams">
+      <h2>2) Visuals</h2>
+      <h3>2.1 Header ring on a jar lid (31 bits)</h3>
+      <svg id="ring" class="diagram" width="280" height="280" role="img" aria-label="31-bit header ring diagram"></svg>
+      <p class="callout">Black ticks = 1; gray ticks = 0. Place as notches around a lid or as dots around a label border.</p>
+
+      <h3>2.2 Beacon cadence (prime-spaced repeats)</h3>
+      <svg id="timeline" class="diagram" width="720" height="90" role="img" aria-label="Beacon timeline with prime-spaced intervals"></svg>
+      <p class="callout">Example spacing: 2, 3, 5, 7, 11&hellip; seconds, then repeat. Any receiver can “lock” by correlating the 31/47 header.</p>
+    </section>
+
+    <section id="spec">
+      <h2>3) Minimal Illumina-1 you can print on a label</h2>
+      <h3>3.1 Handshake header</h3>
+      <div class="equation">M = &lbrace; prime length <i>p</i>, Barker-like autocorrelation, checksum &rbrace; &nbsp; ; &nbsp; p &in; {31, 47}</div>
+      <p><em>Example bitstring (illustrative only):</em></p>
+      <div class="equation">p = 31 &nbsp; ; &nbsp; 1011101001101010010110010010111</div>
+
+      <h3>3.2 ECC (pick one)</h3>
+      <ul>
+        <li>Reed&ndash;Solomon RS(31,19) over GF(32)</li>
+        <li>Extended Golay (24,12,8) (tiny, robust)</li>
+      </ul>
+
+      <h3>3.3 Dimensionless anchors</h3>
+      <div class="equation"><b>a</b> = ( &alpha;, m<sub>e</sub>/m<sub>p</sub>, Q, G&hbar;/c<sup>3</sup> )</div>
+
+      <h3>3.4 Jupiter ephemeris key (unit-free)</h3>
+      <div class="equation">K = &lbrace; Y<sub>64</sub>, D<sub>92</sub>, J<sub>64</sub>, Io<sub>64</sub> &rbrace; &nbsp; &rarr; &nbsp; year mod 64, day-bucket, rotation bucket, phase bucket</div>
+      <p>Publish your exact bucketization and reconstruction tolerance with the batch.</p>
+    </section>
+
+    <section id="diy">
+      <h2>4) DIY (10 minutes)</h2>
+      <ol>
+        <li>Pick <strong>p = 31</strong>. Print the 31-bit header as notches/dots around a circular lid design.</li>
+        <li>Add a small <strong>parity code</strong> (16-bit checksum or Golay(24,12,8)) to a one-line payload (e.g., a URL or contact).</li>
+        <li>Stamp a <strong>Jupiter key</strong> <code>Y|D|J|Io</code> (four small integers) on the label as your “batch code.”</li>
+        <li>Make a small <strong>beacon card</strong> that repeats the same 31-bit header every 2,3,5,7 seconds (light blinks, sounds, or marks).</li>
+        <li>Publish your header/ECC/key mapping once (pre-register), so anyone can verify and replicate.</li>
+      </ol>
+    </section>
+
+    <section id="safety">
+      <h2>5) Safety &amp; norms</h2>
+      <div class="callout">
+        Use <em>diagnostic</em> encodings that don’t perturb anything physical. Keep transmissions within legal spectrum rules.
+        Pre-register your code family, statistic, and thresholds; publish null ensembles; invite replication.
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact &amp; links</h2>
+      <p>
+        ASCII-safe email: <a href="mailto:tau@illumina.plnt.earth?subject=Illumina%20Boiled%20Peanuts">tau@illumina.plnt.earth</a><br/>
+        Unicode alias (where supported): <a href="mailto:%CF%84@illumina.plnt.earth?subject=%CF%84%20(illumina)%20inquiry">&#x03C4;@illumina.plnt.earth</a><br/>
+        Page: <a href="https://illumina.plnt.earth/%CF%84">illumina.plnt.earth/&#x03C4;</a>
+      </p>
+    </section>
+
+    <div class="tear">
+      <div class="chip">&tau; — Illumina</div>
+      <div class="chip">Header: p = 31</div>
+      <div class="chip">ECC: RS(31,19) or Golay(24,12,8)</div>
+      <div class="chip">Key: Y|D|J|Io</div>
+      <div class="chip"><a href="mailto:tau@illumina.plnt.earth">tau@illumina.plnt.earth</a></div>
+    </div>
+
+    <div class="foot">&copy; <span id="y"></span> Tristan White • CC BY-NC-SA 4.0</div>
+  </div>
+
+  <script>
+    // Footer year
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    // --- Draw 31-bit header ring ---
+    (function(){
+      const bits = "1011101001101010010110010010111"; // illustrative example (31 bits)
+      const svg = document.getElementById('ring');
+      const cx = 140, cy = 140, rOuter = 100, rInner1 = 82, rInner0 = 90;
+      // background circle
+      const bg = document.createElementNS("http://www.w3.org/2000/svg","circle");
+      bg.setAttribute("cx",cx); bg.setAttribute("cy",cy); bg.setAttribute("r",rOuter+10);
+      bg.setAttribute("fill","none"); bg.setAttribute("stroke","#2a3348"); bg.setAttribute("stroke-width","1.2");
+      svg.appendChild(bg);
+      // ticks
+      for(let i=0;i<31;i++){
+        const theta = -Math.PI/2 + i*(2*Math.PI/31);
+        const isOne = bits[i]==='1';
+        const r1 = isOne ? rInner1 : rInner0;
+        const x1 = cx + r1 * Math.cos(theta);
+        const y1 = cy + r1 * Math.sin(theta);
+        const x2 = cx + rOuter * Math.cos(theta);
+        const y2 = cy + rOuter * Math.sin(theta);
+        const line = document.createElementNS("http://www.w3.org/2000/svg","line");
+        line.setAttribute("x1",x1); line.setAttribute("y1",y1);
+        line.setAttribute("x2",x2); line.setAttribute("y2",y2);
+        line.setAttribute("stroke", isOne ? "#e6e8ee" : "#7b849b");
+        line.setAttribute("stroke-width", isOne ? "2.2" : "1.2");
+        line.setAttribute("stroke-linecap","round");
+        svg.appendChild(line);
+      }
+      // label
+      const t = document.createElementNS("http://www.w3.org/2000/svg","text");
+      t.setAttribute("x",cx); t.setAttribute("y",cy+5);
+      t.setAttribute("fill","#a3acc2"); t.setAttribute("font-size","12"); t.setAttribute("text-anchor","middle");
+      t.textContent = "p = 31 header ring";
+      svg.appendChild(t);
+    })();
+
+    // --- Draw prime-spaced beacon timeline ---
+    (function(){
+      const svg = document.getElementById('timeline');
+      const w=720, h=90, margin=20;
+      // baseline
+      const line = document.createElementNS("http://www.w3.org/2000/svg","line");
+      line.setAttribute("x1",margin); line.setAttribute("y1",h/2);
+      line.setAttribute("x2",w-margin); line.setAttribute("y2",h/2);
+      line.setAttribute("stroke","#7b849b"); line.setAttribute("stroke-width","1.2");
+      svg.appendChild(line);
+      // prime gaps pattern (2,3,5,7,11) then repeat
+      const gaps = [2,3,5,7,11], unit=18; // 18px per unit for visibility
+      let x = margin;
+      for(let i=0;i<10;i++){
+        const g = gaps[i % gaps.length];
+        x += g*unit;
+        if(x > w - margin) break;
+        const tick = document.createElementNS("http://www.w3.org/2000/svg","line");
+        tick.setAttribute("x1",x); tick.setAttribute("y1",h/2 - 18);
+        tick.setAttribute("x2",x); tick.setAttribute("y2",h/2 + 18);
+        tick.setAttribute("stroke","#e6e8ee"); tick.setAttribute("stroke-width","2.2");
+        tick.setAttribute("stroke-linecap","round");
+        svg.appendChild(tick);
+      }
+      // title
+      const t = document.createElementNS("http://www.w3.org/2000/svg","text");
+      t.setAttribute("x",w/2); t.setAttribute("y",20);
+      t.setAttribute("fill","#a3acc2"); t.setAttribute("font-size","12"); t.setAttribute("text-anchor","middle");
+      t.textContent = "Beacon repeats with prime-spaced gaps: 2, 3, 5, 7, 11…";
+      svg.appendChild(t);
+    })();
+  </script>
+</body>
+</html>
